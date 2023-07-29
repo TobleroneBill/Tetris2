@@ -10,6 +10,8 @@ import Settings
 #       - We need to be able to set the board state on load for custom boards (testing atm)
 #           - Do need a puzzle board, but could be a modification of this as long as its solid as rocks
 
+TEST ADDITION
+
 #   - Tetris pieces 1-7 + 1x1 blocks (for testing)
 #       - Make test rooms for checking specific scenarios
 #           - Side collisions
