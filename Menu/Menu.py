@@ -29,11 +29,11 @@ CLOCK = pygame.time.Clock()
 
 def SceneSelect(Scene=0):
 
-    print(Scene)
+    # print(Scene)
     running = True
     while running:
         Helper.MouseCheck() # Mouse Movement for use whenever needed
-
+        # print(Helper.mouseDelta)
         for event in pygame.event.get():
             if event.type == pygame.QUIT or pygame.key.get_pressed()[pygame.K_ESCAPE]:
                 running = False
@@ -61,11 +61,11 @@ def M_Main():
     SCREEN.fill((100,100,100))
     
     ButtonList = [
-        Button('TEST BUTTON',(100,50),100,50)
+        Button('TEST BUTTON',(100,50),100,50,'hi',print,('hi'))
     ]
 
     for button in ButtonList:
-        button.Draw(SCREEN,(0,0,0),False)
+        button.Update(SCREEN,(0,0,0))
 
     # Helper.DrawText(SCREEN,'Testing',36,(100,100),(255,255,255))
     
