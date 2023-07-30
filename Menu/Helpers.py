@@ -1,16 +1,21 @@
 import pygame
+import time
+from math import sin
+
+# TODO:
+#   - Basically I think scene switching needs restructuring, because we need access to the single event loop to check for single clicks
+#   - Also I think there is a better method to do the Function as arg in button Constructor
+#   - if you want to start working on the actual game, you could just have it so that the button immidately starts game, but that delays the inevitable
 
 class Helper:
     # Keeps track of mouse stuff
     mouseDelta = [0,0]
     mousePrev = None
     
-    
     def MouseCheck() -> None:
         """
         Records the mouse delta - Movement per frame
         """
-
         if Helper.mousePrev == None:
             Helper.mousePrev = pygame.mouse.get_pos()
         elif pygame.mouse.get_pos() != Helper.mousePrev:
@@ -38,10 +43,15 @@ class Helper:
         text_rect.center = position
         screen.blit(text,text_rect)
 
+    @staticmethod
+    def Ratio(x,y) -> float:
+        '''Returns Y/X '''
+        return y/x
+
 # Need a button which can be selected
 class Button:
     # not interactive yet
-    def __init__(self,Text,Position,width,height,*Args):
+    def __init__(self,Text,Position,width,height,function=None,FARGS=None):
         """
         Draws text to the screen given
 
@@ -68,45 +78,64 @@ class Button:
         self.height = height
 
         # Function to be executed on click
-        self.Execute = Args[0]
-        self.Args = Args[1]
+        self.function = function
+        if FARGS:
+            self.Args = [FARGS,]
 
         self.clicked = False
+        self.selected = False
+        self.StrobeTime = 4
+        self.surface = pygame.Surface((width,height),flags=pygame.SRCALPHA)
+        self.Rect = pygame.Rect((Position[0] - width//2,Position[1] - height//2),(width,height))
+        # print(self.Rect.center)
 
-        self.surface = pygame.Surface(Position,flags=pygame.SRCALPHA)
-        self.Rect = pygame.Rect(Position,(width,height))
     
     # -> Describes the return type, not input parameters
-    def Draw(self,Window,BG,Border=True) -> None: 
+    def Draw(self,Window,BG,Border=3) -> None: 
         # Draw: Border - BG - Text
-        if not Border:
-            self.surface.fill(BG)
+        self.surface.fill((0,0,0))
+
+        rightSide = self.width - (Border*2)
+        BotSide = self.height - (Border*2)
+        # bg Fill
+        
+        drawBG = BG
+        if self.selected:
+            a,b,c = BG
+            sinWave = sin(time.time()) * 50
+            drawBG = (a + sinWave,b + sinWave,c + sinWave)
+
+        if self.clicked:
+            self.surface.set_alpha(125)
+        else:
+            self.surface.set_alpha(255)
+
+ 
+        # Regular
+        pygame.draw.rect(self.surface,drawBG,(0+Border,0+Border,rightSide,BotSide))
         Helper.DrawText(self.surface,self.text,20,(self.width//2,self.height//2),(255,255,255))
         Window.blit(self.surface,self.Rect)
     
-    # TODO: make this good
-    #   issues:
-    #       - Functions as variables
-    #       - Single click functionallity
     # Draws and Logic
     def Update(self,Window,BG) -> None:
-        
-        if self.CheckCollision():
-            if pygame.mouse.get_pressed() == (1,0,0) and not self.clicked:
-                self.clicked = True
-            else:
-                self.clicked = False
-
-
-        self.Draw(Window,BG,Border=False)
+        self.CheckCollision()
+        self.Draw(Window,BG)
     
     # If mouse is inside the box
     def CheckCollision(self):
-        if self.Rect.collidepoint(pygame.mouse.get_pos()):
-            self.surface.set_alpha(125)
-            return True
-        self.surface.set_alpha(255)
-        return False
-        
-    
 
+        if self.Rect.collidepoint(pygame.mouse.get_pos()):
+            self.selected = True
+
+            if pygame.mouse.get_pressed() == (1,0,0) and self.selected:
+                self.clicked = True
+                
+                # self.function(self.Args[0])
+                self.selected = False
+
+            if pygame.mouse.get_pressed() == (0,0,0) and self.selected:
+                self.clicked = False
+        else:
+            self.clicked = False
+            self.selected = False
+        # print(self.selected,self.clicked)

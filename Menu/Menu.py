@@ -37,6 +37,9 @@ def SceneSelect(Scene=0):
         for event in pygame.event.get():
             if event.type == pygame.QUIT or pygame.key.get_pressed()[pygame.K_ESCAPE]:
                 running = False
+            # if event.type == pygame.MOUSEBUTTONDOWN:
+                
+
             
         match Scene:
             case 0:
@@ -60,14 +63,14 @@ def SceneSelect(Scene=0):
 def M_Main():
     SCREEN.fill((100,100,100))
     
+    # Buttons getting made every frame - dumb
     ButtonList = [
-        Button('TEST BUTTON',(100,50),100,50,'hi',print,('hi'))
+        Button('TEST BUTTON',(SCREEN.get_width()//2,SCREEN.get_height()//2),100,80,function=print,FARGS=('Clicked')),
     ]
 
     for button in ButtonList:
-        button.Update(SCREEN,(0,0,0))
+        button.Update(SCREEN,(80,80,80))
 
-    # Helper.DrawText(SCREEN,'Testing',36,(100,100),(255,255,255))
     
     # funny mouse movement
     Helper.DrawText(SCREEN,f'{CLOCK.get_fps() // 1}',36,(
