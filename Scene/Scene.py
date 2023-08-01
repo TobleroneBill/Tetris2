@@ -6,9 +6,28 @@ def Quit():
     pygame.quit()
     sys.exit()
 
-class SceneTemplate:
+'''
+Scene Methods copypasta:
+
     def __init__(self) -> None:
+        pass
+        
+    def Input(self):    # 1
+        pass
+
+
+    def Update(self):   # 2
+        pass
+
+
+    def Draw(self):     # 3
+        pass
+'''
+
+class SceneTemplate:
+    def __init__(self,Manager) -> None:
         print('Making Default stuff')
+        self.Manager = Manager
         pygame.init()
         self.SCREEN = pygame.display.set_mode(Settings.WINDOWSIZE)
         pygame.display.set_caption('Screen')
@@ -25,3 +44,4 @@ class SceneTemplate:
 
     def Draw(self):     # 3
         pygame.display.flip()
+

@@ -5,6 +5,7 @@
     "Readme.md": true,
     "requirements.txt": true,
     ".GITIGNORE": true,
-    "Menu\\__pycache__": true
+    "Menu\\__pycache__": true,
+    ".vscode": true
   }
 }

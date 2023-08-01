@@ -1,18 +1,29 @@
 from Scene.Scene import SceneTemplate, Quit
 import Menu.UI
 import pygame, sys
+from Settings import WINDOWCENTER
 
 # Dont need a quit scene - this will just be button
 
+# Loads game, and has Scenes for:
+#   - Play Game
+#   - Stats
+#       - Blocks Places
+#       - Highest Score
+#       - Longest Time Survived
+#       - Total Playtime
+#   - Options
+#   - GameModes
+
+
 # I am genuinely proud of this :)
 class MenuScene(SceneTemplate):
-    def __init__(self):
-        super().__init__() # try this
+    def __init__(self,Manager):
+        super().__init__(Manager)
         self.ButtonList = [
-            Menu.UI.Button('TEST BUTTON',(self.SCREEN.get_width()//2,self.SCREEN.get_height()//2),100,80,function=print,FARGS=('Clicked')),
+            Menu.UI.Button('TEST BUTTON',WINDOWCENTER,100,80,function=print,FARGS=('Clicked')),
             ]
         self.keycount = 0
-
 
     def Input(self):
         eventList = super().Input()
@@ -20,8 +31,11 @@ class MenuScene(SceneTemplate):
             if event.type == pygame.QUIT or pygame.key.get_pressed()[pygame.K_ESCAPE]:
                 Quit()
             if event.type == pygame.KEYDOWN:
+                if pygame.key.get_pressed()[pygame.K_RIGHT]:
+                    self.Manager.SetScene('Game')
                 self.keycount +=1
                 print(self.keycount)
+
 
     def Update(self):   # 2
         super().Update()
@@ -38,18 +52,12 @@ class MenuScene(SceneTemplate):
         
         super().Draw()
 
-    
-
-
-
-
-
-
-
 
 '''
 class StatsScene(Scene):
     pass
+
+    
 class ModesScene(Scene):
     pass
 '''

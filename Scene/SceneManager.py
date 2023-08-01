@@ -1,19 +1,24 @@
 # Scene Manager
 # import Scene.S_Game as S_Game
 import Scene.S_Menu as S_Menu
+import Scene.S_Game as S_Game
+
 import pygame
+
+# Need some way for the scene to tell the scenemanager to switch scenes 
+#   - Scenes all have a refrence to the scene manager # think this is the best idea, its kind of already set up this way
 
 class SceneManager:
     def __init__(self):
         # Add all to this dict
         self.SceneList = {
         # Menu Scenes
-        'Menu':  S_Menu.MenuScene(),
+        'Menu':  S_Menu.MenuScene(self),
         # 'Stats': S_Menu.StatsScene(),
         # 'Modes': S_Menu.ModesScene(),
 
         # GameMode Scenes
-        # 'Game': S_Game.Gamemode_Original()
+        'Game': S_Game.Gamemode_Original(self)
     }
         self.activeScene = self.SceneList['Menu']
         
@@ -27,19 +32,14 @@ class SceneManager:
         if SceneName not in self.SceneList.keys():
             raise ValueError
         self.activeScene = self.SceneList[SceneName]
-
-    def Update(self):
-        # Update each individual aspect of game
         
-        # Should I be putting the loop here?
-        self.activeScene.Input()
-        self.activeScene.Update()
-        self.activeScene.Draw()
     
     def Run(self):
         # main game loop here
         while True:
-            self.Update()
+            self.activeScene.Input()
+            self.activeScene.Update()
+            self.activeScene.Draw()
 
 
 
