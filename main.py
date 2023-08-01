@@ -1,6 +1,5 @@
-import GameDefault
-import Menu.Menu as Menu
+import Scene.SceneManager as Manager
 
 if __name__ == "__main__":
-    # GameDefault.Run(board=Boards.TestBoard)
-    Menu.SceneSelect(0)
+    SceneManager = Manager.SceneManager()
+    

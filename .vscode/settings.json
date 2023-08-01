@@ -1,0 +1,10 @@
+{
+  "files.exclude": {
+    "__pycache__": true,
+    "Refrence": true,
+    "Readme.md": true,
+    "requirements.txt": true,
+    ".GITIGNORE": true,
+    "Menu\\__pycache__": true
+  }
+}

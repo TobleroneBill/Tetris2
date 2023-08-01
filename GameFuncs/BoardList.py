@@ -1,6 +1,6 @@
 import numpy as np
 
-# confused :/
+# Probably wont be used for now, but same idea for when I actually make the game portion
 
 DefaultBoard = \
 [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
