@@ -1,4 +1,6 @@
-from Scene.Scene import SceneTemplate, Quit
+from Scene.Scene import SceneTemplate
+from Helpers import Quit
+
 import Menu.UI
 import pygame, sys
 from Settings import WINDOWCENTER
@@ -26,18 +28,18 @@ class MenuScene(SceneTemplate):
         self.keycount = 0
 
     def Input(self):
-        eventList = super().Input()
-        for event in eventList:
-            if event.type == pygame.QUIT or pygame.key.get_pressed()[pygame.K_ESCAPE]:
-                Quit()
-            if event.type == pygame.KEYDOWN:
-                if pygame.key.get_pressed()[pygame.K_RIGHT]:
-                    self.Manager.SetScene('Game')
-                self.keycount +=1
-                print(self.keycount)
+        pass
+        # for event in eventList:
+            # if event.type == pygame.KEYDOWN:
+            #     if pygame.key.get_pressed()[pygame.K_RIGHT]:
+            #         self.Manager.SetScene('Game')
+            #     self.keycount +=1
+            #     print(self.keycount)
 
 
     def Update(self):   # 2
+        if self.ButtonList[0].clicked:
+            self.Manager.SetScene('Game')
         super().Update()
 
     def Draw(self):     # 3

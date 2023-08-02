@@ -2,10 +2,7 @@ import pygame
 import time
 from math import sin
 
-# TODO:
-#   - Basically I think scene switching needs restructuring, because we need access to the single event loop to check for single clicks
-#   - Also I think there is a better method to do the Function as arg in button Constructor
-#   - if you want to start working on the actual game, you could just have it so that the button immidately starts game, but that delays the inevitable
+# TODO Buttons with functions attached
 
 class Helper:
     # Keeps track of mouse stuff

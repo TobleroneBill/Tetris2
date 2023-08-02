@@ -2,8 +2,12 @@
 # import Scene.S_Game as S_Game
 import Scene.S_Menu as S_Menu
 import Scene.S_Game as S_Game
-
+import Scene.S_Debug as S_Debug
+import Tetris.Input as Input
 import pygame
+from Helpers import Quit
+
+
 
 # Need some way for the scene to tell the scenemanager to switch scenes 
 #   - Scenes all have a refrence to the scene manager # think this is the best idea, its kind of already set up this way
@@ -18,12 +22,14 @@ class SceneManager:
         # 'Modes': S_Menu.ModesScene(),
 
         # GameMode Scenes
-        'Game': S_Game.Gamemode_Original(self)
+        'Game': S_Game.Gamemode_Original(self),
+
+        # Debug Scenes
+        'DebugInput' : S_Debug.InputDebug(self)
     }
-        self.activeScene = self.SceneList['Menu']
-        
+        self.activeScene = self.SceneList['DebugInput']
+        self.InputManager = Input.InputManager()
         # (delay,interval) in Ms (1000 ms in 1 second)
-        pygame.key.set_repeat(700,80)   # Key repetition stuff
         self.Run()
 
     
@@ -37,8 +43,14 @@ class SceneManager:
     def Run(self):
         # main game loop here
         while True:
-            self.activeScene.Input()
+
+            # send inputmanager keys to current level, which will have more specific instructions
+            self.activeScene.Input(self.InputManager)
+            
+            # Update Game Logic
             self.activeScene.Update()
+            
+            # Draw Game
             self.activeScene.Draw()
 
 

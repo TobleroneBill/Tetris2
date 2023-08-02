@@ -1,27 +1,26 @@
 # Generic Scene
 import Settings
-import pygame, sys
+import pygame
 
-def Quit():
-    pygame.quit()
-    sys.exit()
 
 '''
-Scene Methods copypasta:
+**Scene Methods copypasta**
 
-    def __init__(self) -> None:
-        pass
+class ClassName(SceneTemplate):
+    def __init__(self,Manager):
+        super().__init__(Manager)
+
         
     def Input(self):    # 1
-        pass
+        super().Input()
 
 
     def Update(self):   # 2
-        pass
+        super().Update()        
 
 
     def Draw(self):     # 3
-        pass
+        super().Draw()
 '''
 
 class SceneTemplate:
@@ -35,7 +34,7 @@ class SceneTemplate:
 
     # simple input and then upgrade if I feel necassary
     def Input(self):    # 1
-        return [event for event in pygame.event.get()]
+        return pygame.event.get()
 
 
     def Update(self):   # 2
@@ -43,5 +42,5 @@ class SceneTemplate:
 
 
     def Draw(self):     # 3
-        pygame.display.flip()
+        pygame.display.update()
 

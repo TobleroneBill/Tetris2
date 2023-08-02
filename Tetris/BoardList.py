@@ -1,4 +1,6 @@
 import numpy as np
+#/_______________________________________________/BOARDS/_______________________________________________/
+# For testing, and puzzles
 
 # Probably wont be used for now, but same idea for when I actually make the game portion
 
