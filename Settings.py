@@ -1,7 +1,7 @@
 import pygame
 import enum
 SCALE = 1
-WINDOWSIZE = (512 * SCALE,512 * SCALE)  # 1:1 RATIO
+WINDOWSIZE = (1024 * SCALE,1024 * SCALE)  # 1:1 RATIO
 FPS = 60
 WINDOWCENTER = (WINDOWSIZE[0]//2,WINDOWSIZE[1]//2,)
 
@@ -9,6 +9,11 @@ WINDOWCENTER = (WINDOWSIZE[0]//2,WINDOWSIZE[1]//2,)
 class Keys(enum.Enum):
     MOVELEFT = pygame.K_a
     MOVERIGHT = pygame.K_d
+
+    MOVEUP = pygame.K_w
+    MOVEDOWN = pygame.K_s
+    
+
     SOFTDROP = pygame.K_s
     HARDDROP = pygame.K_SPACE   # this might be broken on my keyboard idk
     ROTATELEFT = pygame.K_LEFT

@@ -7,12 +7,10 @@ import Settings
 from Helpers import Quit
 import sys
 # TODO: control flow needs figuring out
+# TODO: Certian inputs messed up when held - check on another PC if this is still the case
 
 # Control Flow:
 # Scene Manager calls scene update with argument (InputManager.getInput)
-
-# this is pretty sick tho
-
 class InputManager:
     def __init__(self):
         self.SessionKeys = [] # List of keypresses every tick for playback
@@ -25,6 +23,22 @@ class InputManager:
 
     def GetHeldTime(self):
         return self.timeHeld
+
+    def CheckKey(self,KeyCheck):
+        '''
+        Checks if specified key is pressed
+
+        Parameters:
+            KeyCheck (Settings.Key): The key to check for
+        '''
+        # print(Settings.Keys.HARDDROP.name)
+        if self.SessionKeys[-1] == []:
+            return False
+        if self.SessionKeys[-1] == [KeyCheck.name]:
+            return True
+        return False
+
+
 
     def GetInput(self):
         inputList = []

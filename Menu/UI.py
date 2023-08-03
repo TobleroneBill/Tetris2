@@ -23,7 +23,7 @@ class Helper:
 
 
     @staticmethod
-    def DrawText(screen,text,size,position,color,AA=False) -> None:
+    def DrawText(screen,text,size,position,color,AA=False,opacity=None) -> None:
         """
         Draws text to the screen given
 
@@ -38,13 +38,23 @@ class Helper:
         text = font.render(text,AA,color)
         text_rect = text.get_rect()
         text_rect.center = position
-        screen.blit(text,text_rect)
 
-    @staticmethod
-    def Ratio(x,y) -> float:
-        '''Returns Y/X '''
-        return y/x
+        # make a screen, then set its opacity, and blit the text on there, 
+        # then blit that screen to the main screen
+        if opacity is not None:
+            BlitScreen = pygame.Surface((size,size),pygame.SRCALPHA)
+            # BlitScreen.blit(text,text_rect)
+            
+            # BlitScreen.fill((255,255,255))
+            BlitScreen.blit(text,(0,0))
+            BlitScreen.set_alpha(opacity)
+            screen.blit(BlitScreen,text_rect)
+        else:
+            screen.blit(text,text_rect)
 
+
+
+    
 # Need a button which can be selected
 class Button:
     # not interactive yet

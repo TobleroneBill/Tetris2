@@ -14,6 +14,9 @@ from Helpers import Quit
 
 class SceneManager:
     def __init__(self):
+
+        self.InputManager = Input.InputManager()            # Handles input
+
         # Add all to this dict
         self.SceneList = {
         # Menu Scenes
@@ -25,11 +28,11 @@ class SceneManager:
         'Game': S_Game.Gamemode_Original(self),
 
         # Debug Scenes
-        'DebugInput' : S_Debug.InputDebug(self)
+        'DebugInput' : S_Debug.InputDebug(self),
+        'DebugSnakeTest' : S_Debug.SnakeDebug(self)
+
     }
-        self.activeScene = self.SceneList['DebugInput']
-        self.InputManager = Input.InputManager()
-        # (delay,interval) in Ms (1000 ms in 1 second)
+        self.activeScene = self.SceneList['DebugSnakeTest']     #
         self.Run()
 
     
@@ -45,7 +48,7 @@ class SceneManager:
         while True:
 
             # send inputmanager keys to current level, which will have more specific instructions
-            self.activeScene.Input(self.InputManager)
+            self.activeScene.Input()
             
             # Update Game Logic
             self.activeScene.Update()
